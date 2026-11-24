@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Charte KOAST (PDF Guideline) : Montserrat 600 + Josefin Sans 400 ; #08112C, #FFFFFF, #E59F4A, dégradé #D6A86B.
+   Or réservé aux CTA, chiffres et éléments importants. */
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-accent: "Josefin Sans", "Montserrat", ui-sans-serif, sans-serif;
+
+  --color-navy: #08112C;
+  --color-navy-deep: #050A1C;
+  --color-navy-card: #111B3D;
+  --color-navy-line: #1C2747;
+  --color-navy-soft: #263463;
+
+  --color-gold: #E59F4A;
+  --color-gold-light: #F2B872;
+  --color-gold-dark: #9A5B14;   /* or lisible sur fond clair */
+  --color-cream: #FBF1E4;
+  --color-sand: #D6A86B;  /* dégradé de la charte */
+
+  --color-ink: #0B1226;
+  --color-body: #3D4457;
+  --color-muted: #7A8194;
+  --color-mist: #C3C9D7;
+  --color-fog: #D5DAE5;
+  --color-cloud: #F4F5F8;
+  --color-line: #E1E4EB;
+}
+
+@utility wrap {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+@utility hero-fade {
+  background: linear-gradient(90deg, #050A1C 0%, #050A1C 34%, rgb(5 10 28 / 0.55) 60%, rgb(5 10 28 / 0.05) 100%);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

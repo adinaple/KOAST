@@ -1,0 +1,38 @@
+# KOAST — configuration Apache/LiteSpeed pour Hostinger (à placer dans public_html)
+
+# 1. Routes React : toute URL qui n'est pas un fichier réel renvoie vers index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forcer HTTPS (si vous préférez, activez plutôt « Forcer HTTPS » dans hPanel et supprimez ces 2 lignes)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# 2. Cache : les fichiers de /assets ont un nom unique à chaque build → cache long
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?|svg|jpg|jpeg|png|webp|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # En-têtes de sécurité de base (un site de cybersécurité se doit de les avoir)
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# 3. Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+Options -Indexes
